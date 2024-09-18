@@ -1,0 +1,6 @@
+entrega dia 04
+
+
+4) Conversor de Moedas: Criar um programa que usa uma API (ou valores fixos para
+simplificar) para converter diferentes moedas, com uma interface simples onde o usuário
+insere o valor e seleciona as moedas de conversão.
