@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image, ImageTk
 import requests
 
 
@@ -61,33 +62,35 @@ class App(Funcs):
     def __init__(self):
         self.root = root
         self.tela()
-        self.frame()
+        self.background()
         self.botoes()
         root.mainloop()
 
     def tela(self):
         self.root.title('Conversor de Moedas')
-        self.root.configure(bg="#0092ff")
-        self.root.geometry('300x200')
-        self.root.resizable(True, True)
-        self.root.maxsize(width=400, height=180)
-        self.root.minsize(width=290, height=135)
-    #* BACK GROUND
-    def frame(self):
-        self.frame_1 = Frame(self.root, bg="#0092ff")
-        self.frame_1.place(relwidth=1, relheight=1)
+        self.root.geometry('300x180')
+        self.root.resizable(False, False)
+
+    def background(self):
+        # Carregar e redimensionar a imagem com Pillow
+        self.img_original = Image.open("bg.png")
+        self.img_resized = self.img_original.resize((1000, 280), Image.Resampling.LANCZOS)
+        self.img = ImageTk.PhotoImage(self.img_resized)
+        
+        self.Background = Label(self.root, image=self.img)
+        self.Background.place(x=0, y=0, relwidth=1, relheight=1)
 
     def botoes(self):
         #* Criar a entry do valor
-        self.ty_valor = Entry(self.frame_1, bg='#ffbc37',font=('verdana', 9, 'bold'), fg='black')
+        self.ty_valor = Entry(self.root, bg='#fff8d7',font=('verdana', 9, 'bold'), fg='black')
         self.ty_valor.place(relx=0.35, y=20, relwidth=0.5, height=25)
 
 
         #* Drop Down Button 1
-        self.TipVar = StringVar(self.frame_1)
+        self.TipVar = StringVar(self.root)
         self.Tipv = moedas
         self.TipVar.set('BRL')
-        self.popmenu = OptionMenu(self.frame_1, self.TipVar, *self.Tipv)
+        self.popmenu = OptionMenu(self.root, self.TipVar, *self.Tipv)
         #* EDITA A APARENCIA DO BUTTON DORPDOWN       
         self.popmenu.config(bg='#ffcd69', fg='black', activebackground="#efbd59", activeforeground="black",  font=('Helvetica', 10, 'bold'))
         #* EDITAR A CAIXA DE SLEÇOES
@@ -98,11 +101,11 @@ class App(Funcs):
         
 
         #* Drop Down Button 2
-        self.TipVar2 = StringVar(self.frame_1)
+        self.TipVar2 = StringVar(self.root)
         self.Tipv2 = moedas
         self.TipVar2.set('USD')
         #* EDITA A APARENCIA DO BUTTON DORPDOWN       
-        self.popmenu2 = OptionMenu(self.frame_1, self.TipVar2, *self.Tipv2)
+        self.popmenu2 = OptionMenu(self.root, self.TipVar2, *self.Tipv2)
         self.popmenu2.config(bg='#ffcd69', fg='black', activebackground="#efbd59", activeforeground="black",  font=('Helvetica', 10, 'bold'))
         self.menu2 = self.popmenu2['menu']
         #* EDITAR CAIXA DE SELEÇÃO
@@ -113,11 +116,11 @@ class App(Funcs):
 
 
         #* Criando o label do resultado
-        self.result = Label(self.frame_1, font=('verdana', 9, 'bold'), fg='black', bg="#ffbc37", justify="left", anchor="nw")
+        self.result = Label(self.root, font=('verdana', 9, 'bold'), fg='black', bg="#fff8d7", justify="left", anchor="nw")
         self.result.place(relx=0.35, y=60, relwidth=0.5, height=25)
 
         #* Criar o botao Converter
-        self.converter = Button(self.frame_1, text='Converter', bd=3, activebackground="#F0F8FF",
+        self.converter = Button(self.root, text='Converter',bg="#fff8d7", bd=3, activebackground="#fff0a6",
                                 font=('verdana', 10, 'bold'), command=self.Vfloat)
         self.converter.place(relx=0.35, y=100, relwidth=0.3, height=30)
 
